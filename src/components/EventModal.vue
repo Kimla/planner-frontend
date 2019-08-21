@@ -98,7 +98,8 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: #e5e5e5;
+  opacity: 0.75;
 }
 .wrapper {
   overflow: auto;
@@ -113,6 +114,8 @@ export default {
   width: 100%;
   position: relative;
   margin: auto;
+  box-shadow: 0 1px 6px 0 rgba(60, 64, 67, 0.302),
+    0 1px 6px 1px rgba(60, 64, 67, 0.149);
 }
 .input,
 .textarea {
