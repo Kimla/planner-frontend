@@ -11,10 +11,12 @@
             class="textarea title"
             type="text"
             v-model="event.title"
+            placeholder="Title..."
             required
           >
           <textarea
             class="textarea description"
+            placeholder="Description..."
             v-model="event.description"
           ></textarea>
           <p class="date">
