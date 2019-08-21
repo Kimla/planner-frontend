@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const baseUrl = 'https://test.kimlarsson.se/api'
 const resource = `${baseUrl}/events`
 
@@ -7,59 +9,34 @@ export default {
   },
 
   async getByWeek (week, year) {
-    const response = await fetch(this.getByWeekUrl(week, year))
-    const res = await response.json()
+    const res = await axios(this.getByWeekUrl(week, year))
 
-    return res
+    return res.data
   },
 
   async getByDate (date) {
-    const response = await fetch(`${resource}/date/${date}`)
-    const res = await response.json()
+    const res = await axios(`${resource}/date/${date}`)
 
-    return res
+    return res.data
   },
 
   async create (event) {
-    let res = await fetch(resource, {
-      method: 'POST',
-      body: JSON.stringify({
-        ...event,
-        date: '2019-08-21'
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+    const res = await axios.post(resource, {
+      ...event,
+      date: '2019-08-21'
     })
 
-    res = await res.json()
-
-    return res
+    return res.data
   },
 
   async update (event) {
-    let res = await fetch(`${resource}/${event.id}`, {
-      method: 'PUT',
-      body: JSON.stringify(event),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+    const res = await axios.put(`${resource}/${event.id}`, event)
 
-    res = await res.json()
-
-    return res
+    return res.data
   },
 
   async delete (eventId) {
-    let res = await fetch(`${resource}/${eventId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-
-    res = await res.json()
+    const res = await axios.delete(`${resource}/${eventId}`)
 
     return res
   }

@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   props: {
     url: {
@@ -28,8 +30,8 @@ export default {
     async fetchItems (url) {
       this.loading = true
 
-      const response = await fetch(this.url)
-      this.data = await response.json()
+      const res = await axios(this.url)
+      this.data = res.data
 
       this.loading = false
 
