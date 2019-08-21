@@ -9,6 +9,7 @@
         <form @submit.prevent="submitHandler">
           <Datepicker
             v-model="event.date"
+            :monday-first="true"
             placeholder="Date..."
             input-class="input"
           />
