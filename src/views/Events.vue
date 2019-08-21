@@ -5,35 +5,10 @@
       <h1 class="heading">Calendar</h1>
     </header>
 
-    <div class="nav">
-        <button
-          @click="prevWeek"
-          class="button"
-        >
-          <img
-            src="../assets/images/chevron-left.svg"
-            alt=""
-            class="buttonIcon"
-          >
-        </button>
-
-        <div class="selectedWeek">
-          {{ week }} - {{ year }}
-        </div>
-
-        <button
-          @click="nextWeek"
-          class="button"
-        >
-          <img
-            src="../assets/images/chevron-right.svg"
-            alt=""
-            class="buttonIcon"
-          >
-        </button>
-    </div>
+    <WeekPicker @dateChanged="newDate => date = newDate"/>
 
     <Fetch
+      v-if="apiUrl"
       :url="apiUrl"
       @updated="items => events = items"
       class="eventList"
@@ -43,7 +18,7 @@
         class="eventHolder"
         :key="event.id"
       >
-        <Event :event="event" @open="(event) => openEvent = {...event}" />
+        <Event :event="event" @open="event => openEvent = {...event}" />
       </div>
       <p
         v-if="events.length < 1"
@@ -52,6 +27,7 @@
         No events found
       </p>
     </Fetch>
+
     <EventModal
       v-if="openEvent"
       :event="openEvent"
@@ -63,15 +39,14 @@
 </template>
 
 <script>
+import WeekPicker from '@/components/WeekPicker.vue'
 import Fetch from '@/components/Fetch.vue'
 import Event from '@/components/Event.vue'
 import EventModal from '@/components/EventModal.vue'
-import getWeek from 'date-fns/getWeek'
-import getYear from 'date-fns/getYear'
-import getISOWeeksInYear from 'date-fns/getISOWeeksInYear'
 
 export default {
   components: {
+    WeekPicker,
     Fetch,
     Event,
     EventModal
@@ -79,36 +54,18 @@ export default {
   data () {
     return {
       events: [],
-      week: getWeek(new Date()),
-      year: getYear(new Date()),
+      date: false,
       openEvent: false
     }
   },
   computed: {
     apiUrl () {
-      return `https://test.kimlarsson.se/api/events/week/${this.week}/${this.year}`
+      if (!this.date) return false
+
+      return `https://test.kimlarsson.se/api/events/week/${this.date.week}/${this.date.year}`
     }
   },
   methods: {
-    prevWeek () {
-      if (this.week === 1) {
-        const weeksPrevYear = getISOWeeksInYear(new Date(this.year - 1))
-        this.week = weeksPrevYear
-        this.year--
-      } else {
-        this.week--
-      }
-    },
-    nextWeek () {
-      const maxWeeks = getISOWeeksInYear(new Date(this.year))
-
-      if (maxWeeks === this.week) {
-        this.week = 1
-        this.year++
-      } else {
-        this.week++
-      }
-    },
     getEventIndex (eventId) {
       const event = this.events.find(event => event.id === eventId)
       return this.events.indexOf(event)
@@ -143,14 +100,6 @@ export default {
   letter-spacing: 0.25px;
   text-align: center;
 }
-.nav {
-  padding: 15px;
-  border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .eventList {
   padding: 0 15px;
   display: flex;
@@ -158,24 +107,6 @@ export default {
 }
 .eventHolder {
   width: 100%;
-}
-.button {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.buttonIcon {
-  width: 24px;
-  height: 24px;
-}
-.selectedWeek {
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: 0.25px;
-  margin: 0 15px;
-  margin-bottom: 2px;
 }
 .noEventsFound {
   font-size: 1.2rem;
