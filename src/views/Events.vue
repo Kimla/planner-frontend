@@ -49,6 +49,8 @@ import Event from '@/components/Event.vue'
 import EventModal from '@/components/EventModal.vue'
 import TriggerAddEventButton from '@/components/TriggerAddEventButton.vue'
 import eventsRepository from '../repositories/eventsRepository'
+import getISOWeek from 'date-fns/getISOWeek'
+import getYear from 'date-fns/getYear'
 
 export default {
   components: {
@@ -87,16 +89,34 @@ export default {
       return this.events.indexOf(event)
     },
     addEvent (event) {
-      this.events.unshift(event)
+      const weekOfEvent = getISOWeek(new Date(event.date))
+      const yearOfEvent = getYear(new Date(event.date))
+
+      if (weekOfEvent === this.date.week && yearOfEvent === this.date.year) {
+        this.events.push(event)
+        this.orderEvents()
+      }
     },
     updateEvent (updatedEvent) {
-      const index = this.getEventIndex(updatedEvent.id)
-      this.events[index] = updatedEvent
+      const weekOfEvent = getISOWeek(new Date(updatedEvent.date))
+      const yearOfEvent = getYear(new Date(updatedEvent.date))
+
+      if (weekOfEvent === this.date.week && yearOfEvent === this.date.year) {
+        const index = this.getEventIndex(updatedEvent.id)
+        this.events[index] = updatedEvent
+        this.orderEvents()
+      } else {
+        this.deleteEvent(updatedEvent.id)
+      }
     },
     deleteEvent (eventId) {
       const index = this.getEventIndex(eventId)
 
       this.events.splice(index, 1)
+    },
+    orderEvents () {
+      this.events = this.events
+        .sort((a, b) => new Date(a.date) - new Date(b.date) || b.id - a.id)
     }
   }
 }

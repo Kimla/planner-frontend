@@ -20,10 +20,7 @@ export default {
   },
 
   async create (event) {
-    const res = await axios.post(resource, {
-      ...event,
-      date: '2019-08-21'
-    })
+    const res = await axios.post(resource, event)
 
     return res.data
   },

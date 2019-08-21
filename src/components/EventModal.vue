@@ -7,8 +7,13 @@
     <div class="wrapper">
       <div class="inner">
         <form @submit.prevent="submitHandler">
+          <Datepicker
+            v-model="event.date"
+            placeholder="Date..."
+            input-class="input"
+          />
           <input
-            class="textarea title"
+            class="input"
             type="text"
             v-model="event.title"
             placeholder="Title..."
@@ -19,9 +24,6 @@
             placeholder="Description..."
             v-model="event.description"
           ></textarea>
-          <p class="date">
-            {{ event.date }}
-          </p>
           <div class="buttons">
             <button
               v-if="!isNew"
@@ -46,8 +48,12 @@
 
 <script>
 import eventsRepository from '../repositories/eventsRepository'
+import Datepicker from 'vuejs-datepicker'
 
 export default {
+  components: {
+    Datepicker
+  },
   props: {
     event: {
       type: Object,
@@ -112,8 +118,6 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 100;
-  display: flex;
-  align-items: center;
 }
 .overlay {
   position: absolute;
@@ -127,8 +131,11 @@ export default {
 .wrapper {
   overflow: auto;
   width: 100%;
+  height: 100%;
   max-height: 100%;
   padding: 15px;
+  display: flex;
+  align-items: center;
 }
 .inner {
   padding: 20px 12px;
@@ -140,17 +147,14 @@ export default {
   box-shadow: 0 1px 6px 0 rgba(60, 64, 67, 0.302),
     0 1px 6px 1px rgba(60, 64, 67, 0.149);
 }
-.input,
+.modal >>> .input,
 .textarea {
   width: 100%;
-  padding: 5px;
+  padding: 8px;
   border-radius: 3px;
   border: 1px solid #e0e0e0;
   resize: none;
   margin-bottom: 0.6rem;
-}
-.title {
-  font-size: 1.1em;
 }
 .description {
   height: 200px;
