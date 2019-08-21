@@ -48,6 +48,7 @@ import Fetch from '@/components/Fetch.vue'
 import Event from '@/components/Event.vue'
 import EventModal from '@/components/EventModal.vue'
 import TriggerAddEventButton from '@/components/TriggerAddEventButton.vue'
+import eventsRepository from '../repositories/eventsRepository'
 
 export default {
   components: {
@@ -69,7 +70,7 @@ export default {
     apiUrl () {
       if (!this.date) return false
 
-      return `https://test.kimlarsson.se/api/events/week/${this.date.week}/${this.date.year}`
+      return eventsRepository.getByWeekUrl(this.date.week, this.date.year)
     }
   },
   methods: {
@@ -87,23 +88,15 @@ export default {
     },
     addEvent (event) {
       this.events.unshift(event)
-
-      this.openEvent = false
     },
     updateEvent (updatedEvent) {
-      if (updatedEvent) {
-        const index = this.getEventIndex(updatedEvent.id)
-        this.events[index] = updatedEvent
-      }
-
-      this.openEvent = false
+      const index = this.getEventIndex(updatedEvent.id)
+      this.events[index] = updatedEvent
     },
     deleteEvent (eventId) {
       const index = this.getEventIndex(eventId)
 
       this.events.splice(index, 1)
-
-      this.openEvent = false
     }
   }
 }

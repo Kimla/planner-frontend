@@ -2,7 +2,7 @@
   <div class="modal">
     <div
       class="overlay"
-      @click="$emit('close')"
+      @click="close"
     ></div>
     <div class="wrapper">
       <div class="inner">
@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import eventsRepository from '../repositories/eventsRepository'
+
 export default {
   props: {
     event: {
@@ -70,6 +72,9 @@ export default {
     }
   },
   methods: {
+    close () {
+      this.$emit('close')
+    },
     submitHandler () {
       if (this.isNew) {
         this.createEvent()
@@ -78,43 +83,22 @@ export default {
       }
     },
     async createEvent () {
-      let res = await fetch('https://test.kimlarsson.se/api/events', {
-        method: 'POST',
-        body: JSON.stringify({
-          ...this.newEvent,
-          date: '2019-08-21'
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-
-      res = await res.json()
+      const res = await eventsRepository.create(this.newEvent)
 
       this.$emit('addEvent', res)
+      this.close()
     },
     async updateEvent () {
-      let res = await fetch(`https://test.kimlarsson.se/api/events/${this.newEvent.id}`, {
-        method: 'PUT',
-        body: JSON.stringify(this.newEvent),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-
-      res = await res.json()
+      const res = await eventsRepository.update(this.newEvent)
 
       this.$emit('updateEvent', res)
+      this.close()
     },
     async deleteEvent () {
-      await fetch(`https://test.kimlarsson.se/api/events/${this.newEvent.id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+      await eventsRepository.delete(this.newEvent.id)
 
       this.$emit('deleteEvent', this.newEvent.id)
+      this.close()
     }
   }
 }
