@@ -10,7 +10,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'evets',
+      name: 'events',
       component: Events
     }
   ]

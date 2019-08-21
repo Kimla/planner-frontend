@@ -36,13 +36,21 @@ import getISOWeeksInYear from 'date-fns/getISOWeeksInYear'
 export default {
   data () {
     return {
-      events: [],
-      week: getWeek(new Date()),
-      year: getYear(new Date()),
-      openEvent: false
+      week: null,
+      year: null
     }
   },
   created () {
+    const { year, week } = this.$route.query
+
+    if (year && week) {
+      this.week = week
+      this.year = year
+    } else {
+      this.week = getWeek(new Date())
+      this.year = getYear(new Date())
+    }
+
     this.emitDateChanged()
   },
   methods: {
@@ -55,7 +63,7 @@ export default {
         this.week--
       }
 
-      this.emitDateChanged()
+      this.dateChanged()
     },
     nextWeek () {
       const maxWeeks = getISOWeeksInYear(new Date(this.year))
@@ -67,7 +75,20 @@ export default {
         this.week++
       }
 
+      this.dateChanged()
+    },
+    dateChanged () {
+      this.updateUrl()
       this.emitDateChanged()
+    },
+    updateUrl () {
+      this.$router.replace({
+        name: 'events',
+        query: {
+          week: this.week,
+          year: this.year
+        }
+      })
     },
     emitDateChanged () {
       this.$emit('dateChanged', {
