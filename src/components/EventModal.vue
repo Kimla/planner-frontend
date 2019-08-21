@@ -6,10 +6,11 @@
     ></div>
     <div class="wrapper">
       <div class="inner">
-          <textarea
+          <input
             class="textarea title"
+            type="text"
             v-model="event.title"
-          ></textarea>
+          >
         <textarea
           class="textarea description"
           v-model="event.description"
@@ -95,6 +96,7 @@ export default {
   position: relative;
   margin: auto;
 }
+.input,
 .textarea {
   width: 100%;
   padding: 5px;
@@ -104,7 +106,7 @@ export default {
   margin-bottom: 0.5rem;
 }
 .title {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 .description {
   height: 200px;

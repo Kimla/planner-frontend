@@ -6,8 +6,7 @@
     <h2 class="title">
       {{ event.title }}
     </h2>
-    <p class="description">
-      {{ event.description }}
+    <p class="description" v-html="event.description">
     </p>
     <p class="date">
       {{ event.date }}
@@ -41,5 +40,7 @@ export default {
 }
 .description {
   margin-bottom: 0.5rem;
+  white-space: pre-line;
+  word-wrap: break-word;
 }
 </style>
