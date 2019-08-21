@@ -18,12 +18,20 @@
         <p class="date">
           {{ event.date }}
         </p>
-        <button
-          @click="updateEvent"
-          class="saveButton"
-        >
-          Save
-        </button>
+        <div class="buttons">
+          <button
+            @click="deleteEvent"
+            class="button deleteButton"
+          >
+            Delete
+          </button>
+          <button
+            @click="updateEvent"
+            class="button saveButton"
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -58,6 +66,16 @@ export default {
       res = await res.json()
 
       this.$emit('updateEvent', res)
+    },
+    async deleteEvent () {
+      await fetch(`https://test.kimlarsson.se/api/events/${this.newEvent.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      this.$emit('deleteEvent', this.newEvent.id)
     }
   }
 }
@@ -103,7 +121,7 @@ export default {
   border-radius: 3px;
   border: 1px solid #e0e0e0;
   resize: none;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 .title {
   font-size: 1.1em;
@@ -111,13 +129,21 @@ export default {
 .description {
   height: 200px;
 }
-.saveButton {
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.button {
   font-size: 0.8rem;
   font-weight: 600;
   padding: 10px 30px;
   border: 1px solid #e0e0e0;
 }
+.deleteButton {
+  background-color: #f44336;
+  color: #fff;
+}
 .date {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.2rem;
 }
 </style>

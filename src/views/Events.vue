@@ -57,6 +57,7 @@
       :event="openEvent"
       @close="openEvent = false"
       @updateEvent="updateEvent"
+      @deleteEvent="deleteEvent"
     />
   </div>
 </template>
@@ -108,12 +109,22 @@ export default {
         this.week++
       }
     },
+    getEventIndex (eventId) {
+      const event = this.events.find(event => event.id === eventId)
+      return this.events.indexOf(event)
+    },
     async updateEvent (updatedEvent) {
       if (updatedEvent) {
-        const event = this.events.find(event => event.id === updatedEvent.id)
-        const index = this.events.indexOf(event)
+        const index = this.getEventIndex(updatedEvent.id)
         this.events[index] = updatedEvent
       }
+
+      this.openEvent = false
+    },
+    async deleteEvent (eventId) {
+      const index = this.getEventIndex(eventId)
+
+      this.events.splice(index, 1)
 
       this.openEvent = false
     }
