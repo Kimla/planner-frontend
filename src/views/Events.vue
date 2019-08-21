@@ -18,7 +18,7 @@
         class="eventHolder"
         :key="event.id"
       >
-        <Event :event="event" @open="event => openEvent = {...event}" />
+        <Event :event="event" @open="openUpdateModal" />
       </div>
       <p
         v-if="events.length < 1"
@@ -28,10 +28,14 @@
       </p>
     </Fetch>
 
+    <TriggerAddEventButton @click.native="openCreateModal"/>
+
     <EventModal
       v-if="openEvent"
       :event="openEvent"
+      :is-new="newEventOpen"
       @close="openEvent = false"
+      @addEvent="addEvent"
       @updateEvent="updateEvent"
       @deleteEvent="deleteEvent"
     />
@@ -43,19 +47,22 @@ import WeekPicker from '@/components/WeekPicker.vue'
 import Fetch from '@/components/Fetch.vue'
 import Event from '@/components/Event.vue'
 import EventModal from '@/components/EventModal.vue'
+import TriggerAddEventButton from '@/components/TriggerAddEventButton.vue'
 
 export default {
   components: {
     WeekPicker,
     Fetch,
     Event,
-    EventModal
+    EventModal,
+    TriggerAddEventButton
   },
   data () {
     return {
       events: [],
       date: false,
-      openEvent: false
+      openEvent: false,
+      newEventOpen: false
     }
   },
   computed: {
@@ -66,11 +73,24 @@ export default {
     }
   },
   methods: {
+    openUpdateModal (event) {
+      this.newEventOpen = false
+      this.openEvent = { ...event }
+    },
+    openCreateModal () {
+      this.newEventOpen = true
+      this.openEvent = {}
+    },
     getEventIndex (eventId) {
       const event = this.events.find(event => event.id === eventId)
       return this.events.indexOf(event)
     },
-    async updateEvent (updatedEvent) {
+    addEvent (event) {
+      this.events.unshift(event)
+
+      this.openEvent = false
+    },
+    updateEvent (updatedEvent) {
       if (updatedEvent) {
         const index = this.getEventIndex(updatedEvent.id)
         this.events[index] = updatedEvent
@@ -78,7 +98,7 @@ export default {
 
       this.openEvent = false
     },
-    async deleteEvent (eventId) {
+    deleteEvent (eventId) {
       const index = this.getEventIndex(eventId)
 
       this.events.splice(index, 1)

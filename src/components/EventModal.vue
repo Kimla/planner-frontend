@@ -6,32 +6,37 @@
     ></div>
     <div class="wrapper">
       <div class="inner">
+        <form @submit.prevent="submitHandler">
           <input
             class="textarea title"
             type="text"
             v-model="event.title"
+            required
           >
-        <textarea
-          class="textarea description"
-          v-model="event.description"
-        ></textarea>
-        <p class="date">
-          {{ event.date }}
-        </p>
-        <div class="buttons">
-          <button
-            @click="deleteEvent"
-            class="button deleteButton"
-          >
-            Delete
-          </button>
-          <button
-            @click="updateEvent"
-            class="button saveButton"
-          >
-            Save
-          </button>
-        </div>
+          <textarea
+            class="textarea description"
+            v-model="event.description"
+          ></textarea>
+          <p class="date">
+            {{ event.date }}
+          </p>
+          <div class="buttons">
+            <button
+              v-if="!isNew"
+              type="button"
+              @click="deleteEvent"
+              class="button deleteButton"
+            >
+              Delete
+            </button>
+            <button
+              type="submit"
+              class="button saveButton"
+            >
+              {{ buttonLabel }}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -43,6 +48,10 @@ export default {
     event: {
       type: Object,
       required: true
+    },
+    isNew: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -53,7 +62,35 @@ export default {
   created () {
     this.newEvent = this.event
   },
+  computed: {
+    buttonLabel () {
+      return this.isNew ? 'Create' : 'Save'
+    }
+  },
   methods: {
+    submitHandler () {
+      if (this.isNew) {
+        this.createEvent()
+      } else {
+        this.updateEvent()
+      }
+    },
+    async createEvent () {
+      let res = await fetch('https://test.kimlarsson.se/api/events', {
+        method: 'POST',
+        body: JSON.stringify({
+          ...this.newEvent,
+          date: '2019-08-21'
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      res = await res.json()
+
+      this.$emit('addEvent', res)
+    },
     async updateEvent () {
       let res = await fetch(`https://test.kimlarsson.se/api/events/${this.newEvent.id}`, {
         method: 'PUT',
@@ -145,6 +182,9 @@ export default {
 .deleteButton {
   background-color: #f44336;
   color: #fff;
+}
+.saveButton {
+  margin-left: auto;
 }
 .date {
   margin-bottom: 1.2rem;
