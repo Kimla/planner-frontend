@@ -30,4 +30,8 @@ button {
   background: none;
   outline: 0;
 }
+
+* {
+  box-sizing: border-box;
+}
 </style>

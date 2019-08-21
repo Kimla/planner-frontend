@@ -43,7 +43,7 @@
         class="eventHolder"
         :key="event.id"
       >
-        <Event :event="event" />
+        <Event :event="event" @open="(event) => openEvent = {...event}" />
       </div>
       <p
         v-if="events.length < 1"
@@ -52,12 +52,19 @@
         No events found
       </p>
     </Fetch>
+    <EventModal
+      v-if="openEvent"
+      :event="openEvent"
+      @close="openEvent = false"
+      @updateEvent="updateEvent"
+    />
   </div>
 </template>
 
 <script>
 import Fetch from '@/components/Fetch.vue'
 import Event from '@/components/Event.vue'
+import EventModal from '@/components/EventModal.vue'
 import getWeek from 'date-fns/getWeek'
 import getYear from 'date-fns/getYear'
 import getISOWeeksInYear from 'date-fns/getISOWeeksInYear'
@@ -65,13 +72,15 @@ import getISOWeeksInYear from 'date-fns/getISOWeeksInYear'
 export default {
   components: {
     Fetch,
-    Event
+    Event,
+    EventModal
   },
   data () {
     return {
       events: [],
       week: getWeek(new Date()),
-      year: getYear(new Date())
+      year: getYear(new Date()),
+      openEvent: false
     }
   },
   computed: {
@@ -98,6 +107,15 @@ export default {
       } else {
         this.week++
       }
+    },
+    async updateEvent (updatedEvent) {
+      if (updatedEvent) {
+        const event = this.events.find(event => event.id === updatedEvent.id)
+        const index = this.events.indexOf(event)
+        this.events[index] = updatedEvent
+      }
+
+      this.openEvent = false
     }
   }
 }

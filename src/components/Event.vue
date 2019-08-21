@@ -1,5 +1,8 @@
 <template>
-  <div class="event">
+  <div
+    class="event"
+    @click="$emit('open', event)"
+  >
     <h2 class="title">
       {{ event.title }}
     </h2>
