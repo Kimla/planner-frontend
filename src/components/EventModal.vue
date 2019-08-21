@@ -4,24 +4,26 @@
       class="overlay"
       @click="$emit('close')"
     ></div>
-    <div class="inner">
+    <div class="wrapper">
+      <div class="inner">
+          <textarea
+            class="textarea title"
+            v-model="event.title"
+          ></textarea>
         <textarea
-          class="textarea title"
-          v-model="event.title"
+          class="textarea description"
+          v-model="event.description"
         ></textarea>
-      <textarea
-        class="textarea description"
-        v-model="event.description"
-      ></textarea>
-      <p class="date">
-        {{ event.date }}
-      </p>
-      <button
-        @click="updateEvent"
-        class="saveButton"
-      >
-        Save
-      </button>
+        <p class="date">
+          {{ event.date }}
+        </p>
+        <button
+          @click="updateEvent"
+          class="saveButton"
+        >
+          Save
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -68,7 +70,6 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 100;
-  padding: 15px;
   display: flex;
   align-items: center;
 }
@@ -80,12 +81,19 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
 }
+.wrapper {
+  overflow: auto;
+  width: 100%;
+  max-height: 100%;
+  padding: 15px;
+}
 .inner {
   padding: 20px 12px;
   border-radius: 8px;
   background-color: #fff;
   width: 100%;
   position: relative;
+  margin: auto;
 }
 .textarea {
   width: 100%;
