@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'https://test.kimlarsson.se/api'
-const resource = `${baseUrl}/events`
+const resource = '/events'
 
 export default {
   getByWeekUrl (week, year) {
