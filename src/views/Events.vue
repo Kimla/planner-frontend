@@ -88,20 +88,20 @@ export default {
       const event = this.events.find(event => event.id === eventId)
       return this.events.indexOf(event)
     },
-    addEvent (event) {
+    isInCurrentDate (event) {
       const weekOfEvent = getISOWeek(new Date(event.date))
       const yearOfEvent = getYear(new Date(event.date))
 
-      if (weekOfEvent === this.date.week && yearOfEvent === this.date.year) {
+      return weekOfEvent === this.date.week && yearOfEvent === this.date.year
+    },
+    addEvent (event) {
+      if (this.isInCurrentDate(event)) {
         this.events.push(event)
         this.orderEvents()
       }
     },
     updateEvent (updatedEvent) {
-      const weekOfEvent = getISOWeek(new Date(updatedEvent.date))
-      const yearOfEvent = getYear(new Date(updatedEvent.date))
-
-      if (weekOfEvent === this.date.week && yearOfEvent === this.date.year) {
+      if (this.isInCurrentDate(updatedEvent)) {
         const index = this.getEventIndex(updatedEvent.id)
         this.events[index] = updatedEvent
         this.orderEvents()
