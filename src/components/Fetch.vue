@@ -1,7 +1,6 @@
 <template>
   <div>
       <slot v-if="!loading"/>
-      <p v-if="loading">Loading...</p>
   </div>
 </template>
 
@@ -39,6 +38,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>

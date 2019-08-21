@@ -5,11 +5,29 @@
 </template>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap");
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  color: #202124;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+button {
+  padding: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  outline: 0;
 }
 </style>

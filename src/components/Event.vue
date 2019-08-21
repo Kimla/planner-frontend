@@ -1,6 +1,14 @@
 <template>
-  <div>
-    <h2>{{ event.title }}</h2>
+  <div class="event">
+    <h2 class="title">
+      {{ event.title }}
+    </h2>
+    <p class="description">
+      {{ event.description }}
+    </p>
+    <p class="date">
+      {{ event.date }}
+    </p>
   </div>
 </template>
 
@@ -15,5 +23,20 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.event {
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  transition: 0.22s east-in;
+  margin-bottom: 1rem;
+}
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.description {
+  margin-bottom: 0.5rem;
+}
 </style>
