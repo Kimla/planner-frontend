@@ -1,7 +1,7 @@
 <template>
   <div
     class="event"
-    @click="$emit('open', event)"
+    @click="openEvent"
   >
     <h2 class="title">
       {{ event.title }}
@@ -20,6 +20,18 @@ export default {
     event: {
       type: Object,
       required: true
+    }
+  },
+  created () {
+    const openEvent = Number(this.$route.query.open)
+
+    if (openEvent === this.event.id) {
+      this.openEvent()
+    }
+  },
+  methods: {
+    openEvent () {
+      this.$emit('open', this.event)
     }
   }
 }

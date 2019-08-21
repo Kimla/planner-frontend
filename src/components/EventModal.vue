@@ -72,6 +72,31 @@ export default {
   },
   created () {
     this.newEvent = this.event
+
+    const query = this.$route.query
+
+    if (Number(query.open) === this.event.id) {
+      return
+    }
+
+    this.$router.replace({
+      name: 'events',
+      query: {
+        ...query,
+        open: this.event.id
+      }
+    })
+  },
+  beforeDestroy () {
+    const query = this.$route.query
+
+    this.$router.replace({
+      name: 'events',
+      query: {
+        week: query.week,
+        year: query.year
+      }
+    })
   },
   computed: {
     buttonLabel () {
