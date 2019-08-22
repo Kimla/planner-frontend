@@ -1,50 +1,52 @@
 <template>
-  <div class="modal">
-    <div
-      class="overlay"
-      @click="close"
-    ></div>
-    <div class="wrapper">
-      <div class="inner">
-        <form @submit.prevent="submitHandler">
-          <Datepicker
-            v-model="event.date"
-            :monday-first="true"
-            placeholder="Date..."
-            input-class="input"
-          />
-          <input
-            class="input"
-            type="text"
-            v-model="event.title"
-            placeholder="Title..."
-            required
-          >
-          <textarea
-            class="textarea description"
-            placeholder="Description..."
-            v-model="event.description"
-          ></textarea>
-          <div class="buttons">
-            <button
-              v-if="!isNew"
-              type="button"
-              @click="deleteEvent"
-              class="button deleteButton"
+  <transition name="modal" appear>
+    <div class="modal">
+      <div
+        class="overlay"
+        @click="close"
+      ></div>
+      <div class="wrapper">
+        <div class="inner">
+          <form @submit.prevent="submitHandler">
+            <Datepicker
+              v-model="event.date"
+              :monday-first="true"
+              placeholder="Date..."
+              input-class="input"
+            />
+            <input
+              class="input"
+              type="text"
+              v-model="event.title"
+              placeholder="Title..."
+              required
             >
-              Delete
-            </button>
-            <button
-              type="submit"
-              class="button saveButton"
-            >
-              {{ buttonLabel }}
-            </button>
-          </div>
-        </form>
+            <textarea
+              class="textarea description"
+              placeholder="Description..."
+              v-model="event.description"
+            ></textarea>
+            <div class="buttons">
+              <button
+                v-if="!isNew"
+                type="button"
+                @click="deleteEvent"
+                class="button deleteButton"
+              >
+                Delete
+              </button>
+              <button
+                type="submit"
+                class="button saveButton"
+              >
+                {{ buttonLabel }}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -137,6 +139,16 @@ export default {
 </script>
 
 <style scoped>
+.modal-leave-active,
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-enter .inner,
+.modal-leave-active .inner {
+  transform: scale(0.9);
+}
+
 .modal {
   position: fixed;
   left: 0;
@@ -144,6 +156,7 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 100;
+  transition: 0.2s ease;
 }
 .overlay {
   position: absolute;
@@ -170,6 +183,7 @@ export default {
   width: 100%;
   position: relative;
   margin: auto;
+  transition: 0.2s ease;
   box-shadow: 0 1px 6px 0 rgba(60, 64, 67, 0.302),
     0 1px 6px 1px rgba(60, 64, 67, 0.149);
 }
