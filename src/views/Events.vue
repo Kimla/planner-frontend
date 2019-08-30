@@ -129,6 +129,12 @@ export default {
 </script>
 
 <style scoped>
+.aboveHeader {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 15px;
+  text-align: right;
+  background-color: #fff;
+}
 .header {
   border-bottom: 1px solid #e0e0e0;
   padding: 15px;
