@@ -1,6 +1,10 @@
 <template>
   <div class="events">
 
+    <div class="aboveHeader">
+      <LogoutButton/>
+    </div>
+
     <header class="header">
       <h1 class="heading">Calendar</h1>
     </header>
@@ -48,6 +52,7 @@ import Fetch from '@/components/Fetch.vue'
 import Event from '@/components/Event.vue'
 import EventModal from '@/components/EventModal.vue'
 import TriggerAddEventButton from '@/components/TriggerAddEventButton.vue'
+import LogoutButton from '@/components/ui/LogoutButton.vue'
 import eventsRepository from '../repositories/eventsRepository'
 import getISOWeek from 'date-fns/getISOWeek'
 import getYear from 'date-fns/getYear'
@@ -58,7 +63,8 @@ export default {
     Fetch,
     Event,
     EventModal,
-    TriggerAddEventButton
+    TriggerAddEventButton,
+    LogoutButton
   },
   data () {
     return {
