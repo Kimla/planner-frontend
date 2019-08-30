@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700");
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4 {
+    display: block;
+    margin: 0;
+}
+
+h1,
+.h1 {
+    font-size: 40px;
+    @media (--laptop) {
+        font-size: 34px;
+    }
+}
+
+h2,
+.h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    @media (--laptop) {
+        font-size: 26px;
+        margin-bottom: 15px;
+    }
+}
+
+h3,
+.h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    @media (--laptop) {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+}
+
+h4,
+.h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    @media (--laptop) {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+}
+
+p {
+    line-height: 1.5;
+    font-weight: 300;
+    margin: 0;
+    margin-bottom: 20px;
+    @media (--laptop) {
+        margin-bottom: 15px;
+    }
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

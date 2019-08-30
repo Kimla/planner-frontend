@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import 'normalize.css'
+import './assets/style/main.css'
 import App from './App.vue'
 import router from './router'
-import axios from 'axios'
-
-axios.defaults.baseURL = 'https://test.kimlarsson.se/api'
+import store from './store'
+import './plugins'
 
 Vue.config.productionTip = false
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

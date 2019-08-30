@@ -13,6 +13,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #202124;
+  background-color: #f5f5f5;
 }
 
 h1,
