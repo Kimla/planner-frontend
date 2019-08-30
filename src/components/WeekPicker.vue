@@ -108,6 +108,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
 }
 .button {
   width: 32px;

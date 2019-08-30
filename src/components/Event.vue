@@ -40,10 +40,11 @@ export default {
 <style scoped>
 .event {
   padding: 12px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  box-shadow: var(--shadow);
+  border-radius: var(--borderRadius);
   transition: 0.22s east-in;
   margin-bottom: 1rem;
+  background-color: #fff;
 }
 .title {
   font-size: 1rem;

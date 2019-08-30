@@ -1,63 +1,55 @@
 .container {
-    width: 1260px;
-    margin: 0 auto;
-    position: relative;
-    max-width: 100%;
-    padding: 0 30px;
+  width: 1260px;
+  margin: 0 auto;
+  position: relative;
+  max-width: 100%;
+  padding: 0 30px;
 }
 
 .ab100 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .objectFitCover {
-    object-fit: cover;
-    font-family: "object-fit: cover;";
+  object-fit: cover;
+  font-family: "object-fit: cover;";
 }
 
 .inputField {
-    background-color: #fff;
-    display: block;
-    width: 100%;
-    padding: var(--inputFieldPaddingY) var(--inputFieldPaddingX);
-    line-height: normal;
-    border: 1px solid var(--borderColor);
-    font-size: 16px;
-    transition: border-color var(--normalTrans);
-    border-radius: var(--borderRadius);
-    @media (--laptop) {
-        padding: 12px var(--inputFieldPaddingX);
-        font-size: 15px;
-    }
-    &::placeholder {
-        color: var(--grey500);
-        opacity: 1;
-    }
-    &:focus {
-        border-color: var(--primary);
-    }
+  background-color: #fff;
+  display: block;
+  width: 100%;
+  padding: var(--inputFieldPaddingY) var(--inputFieldPaddingX);
+  line-height: normal;
+  border: 1px solid var(--borderColor);
+  font-size: 16px;
+  transition: border-color var(--normalTrans);
+  border-radius: var(--borderRadius);
 }
+
+.inputField::placeholder {
+  color: var(--grey500);
+  opacity: 1;
+}
+
+.inputField:::focus {
+  border-color: var(--primary);
+}
+
 .hasIcon .inputField {
-    padding-left: 52px;
-    @media (--laptop) {
-        padding-left: 44px;
-    }
+  padding-left: 52px;
 }
 .error .inputField {
-    border-color: var(--danger);
+  border-color: var(--danger);
 }
 
 .smallTitle {
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 2.4px;
-    @media (--laptop) {
-        font-size: 13px;
-        letter-spacing: 2px;
-    }
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2.4px;
 }

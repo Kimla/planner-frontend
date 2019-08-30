@@ -126,6 +126,7 @@ export default {
 .header {
   border-bottom: 1px solid #e0e0e0;
   padding: 15px;
+  background-color: #fff;
 }
 .heading {
   font-size: 1.8rem;

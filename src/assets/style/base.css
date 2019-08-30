@@ -1,61 +1,56 @@
 html,
 body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    font-weight: 400;
-    color: var(--primaryTextColor);
-    font-family: var(--primaryFont);
-    font-size: 18px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: var(--grey100);
-    min-width: 1280px;
-    @media (--laptop) {
-        font-size: 16px;
-    }
+  font-family: var(--primaryFont);
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #202124;
+  background-color: #f5f5f5;
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 a,
 button {
-    text-decoration: none;
-    color: inherit;
-    transition: var(--normalTrans);
+  text-decoration: none;
+  color: inherit;
+  transition: var(--normalTrans);
 }
 
 button {
-    font-weight: 400;
-    cursor: pointer;
-    background-color: transparent;
-    padding: 0;
+  font-weight: 400;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 0;
 }
 
 button:focus {
-    outline: 0;
+  outline: 0;
 }
 
 img,
 svg {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 strong,
 b {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 ol,
 ul {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 button,
@@ -63,14 +58,14 @@ input,
 optgroup,
 select,
 textarea {
-    font-family: inherit;
-    background-color: transparent;
-    outline: 0;
-    border: 0;
-    border-radius: 0;
-    color: inherit;
-    font-size: inherit;
-    font-weight: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 input[type="text"],
@@ -78,16 +73,16 @@ input[type="email"],
 input[type="search"],
 input[type="number"],
 textarea {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
 :-moz-focusring,
 ::-moz-focus-outer {
-    border: 0 !important;
-    outline: 0 !important;
+  border: 0 !important;
+  outline: 0 !important;
 }
 
 ::selection {
-    background-color: var(--primary);
-    color: #ffffff;
+  background-color: var(--primary);
+  color: #ffffff;
 }
