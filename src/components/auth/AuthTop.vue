@@ -23,7 +23,7 @@ export default {
 <style lang="postcss" scoped>
 .authTop {
   margin-bottom: 25px;
-  padding: 0 50px;
+  padding: 0 20px;
   text-align: center;
 }
 .heading {

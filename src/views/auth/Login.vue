@@ -39,6 +39,10 @@
             label="Forgot your password?"
             link="/password/forgot"
         />
+        <AuthLink
+            label="Register account"
+            link="/register"
+        />
     </AuthWrapper>
 </template>
 
